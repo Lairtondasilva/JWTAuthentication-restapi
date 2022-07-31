@@ -22,9 +22,10 @@ public class UserService {
   }
   
   public Optional<UserModel> registerUser(UserModel userModel){
-    if(userRepository.findByLogin(userModel.getLogin()).isPresent()){
-      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O usuário já existe", null);
-    }
+     if(userRepository.findByLogin(userModel.getLogin()).isPresent()){
+       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O usuário já existe", null);
+     }
+     
     userModel.setPassword(encoder.encode(userModel.getPassword()));
     return Optional.of(userRepository.save(userModel));
   }
